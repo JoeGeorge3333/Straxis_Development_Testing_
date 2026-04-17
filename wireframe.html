@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness UI Wireframe Demo</title>
+    <link rel="stylesheet" href="./wireframe.css" />
+  </head>
+  <body>
+    <div class="phone">
+      <div class="status-bar">
+        <div>9:41</div>
+        <div class="status-icons">
+          <div class="signal"><span></span><span></span><span></span><span></span></div>
+          <div class="wifi"></div>
+          <div class="battery"></div>
+        </div>
+      </div>
+
+      <div class="app-body">
+        <section class="screen active" data-screen="home">
+          <div class="top-row">
+            <button class="avatar smile" id="homeAvatarBtn" aria-label="Open profile"></button>
+            <div class="day-box" id="dayBox">DAY 12</div>
+            <button class="calendar" id="calendarSummaryBtn" aria-label="View calendar"></button>
+          </div>
+
+          <div class="section">
+            <div class="score-row">
+              <div><strong>You</strong><span id="userScoreTop">215 pts</span></div>
+              <div style="text-align: right">
+                <strong>Opponent</strong><span id="opponentScoreTop">300 pts</span>
+              </div>
+            </div>
+            <div class="competing-bar">
+              <div class="bar-user" id="userBarTop"></div>
+              <div class="bar-opponent" id="opponentBarTop"></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="matchup">
+              <div>
+                <div class="user-avatar smile" id="userAvatarLarge"></div>
+                <div class="points" id="userScoreMatch">215 pts</div>
+              </div>
+              <div class="vs">V.S.</div>
+              <div>
+                <div class="opponent-avatar flat"></div>
+                <div class="points" id="opponentScoreMatch">300 pts</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="tasks" id="taskList"></div>
+            <div class="subtle" id="statusText">
+              Tap a task to open its log page and add entries.
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="log">
+          <div class="page-header">
+            <button class="home-btn page-home-btn" aria-label="Home"></button>
+            <div class="page-title">Log</div>
+          </div>
+
+          <div class="form-card">
+            <h3 id="logTitle">Create Log</h3>
+            <div class="log-form" id="logFormRoot">
+              <select id="logTypeSelect"></select>
+              <input id="logNameInput" type="text" placeholder="Entry name" />
+              <input id="logValueInput" type="number" placeholder="Value" min="1" />
+
+              <label class="toggle-row">
+                <span>Outdoor workout</span>
+                <input id="logOutdoorToggle" type="checkbox" />
+              </label>
+
+              <button class="add-log-btn" id="addLogBtn">Add Log</button>
+            </div>
+
+            <div class="log-summary">
+              <span>Points earned (today)</span>
+              <span id="logTotalValue">0</span>
+            </div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Entries</h3>
+            <div class="mock-list" id="logEntriesList"></div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="history">
+          <div class="page-header">
+            <button class="home-btn page-home-btn" aria-label="Home"></button>
+            <div class="page-title">History / Visuals</div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Weekly Points</h3>
+            <div class="mini-chart" id="historyChart">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Summary</h3>
+            <div class="mock-list">
+              <div class="mock-row">
+                <span>Current Streak</span><span id="historyStreak">12 days</span>
+              </div>
+              <div class="mock-row">
+                <span>Tasks Complete</span><span id="historyTasks">0 / 4</span>
+              </div>
+              <div class="mock-row"><span>Your Points</span><span id="historyPoints">215</span></div>
+              <div class="mock-row">
+                <span>Opponent Points</span><span id="historyOpponentPoints">300</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Backend (simulated)</h3>
+            <div class="mock-list" id="apiLogList"></div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Completion Calendar</h3>
+            <div class="calendar-grid" id="completionCalendar"></div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="profile">
+          <div class="page-header">
+            <button class="home-btn page-home-btn" aria-label="Home"></button>
+            <div class="page-title">Profile</div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Avatar</h3>
+            <div class="avatar-preview smile" id="profileAvatarPreview"></div>
+            <div class="controls-grid">
+              <button class="picker-btn active" data-face="smile">Smile</button>
+              <button class="picker-btn" data-face="flat">Flat</button>
+              <button class="picker-btn active" data-hair="dark">Dark Hair</button>
+              <button class="picker-btn" data-hair="light">Light Hair</button>
+            </div>
+          </div>
+
+          <div class="mock-card">
+            <h3>Scoring (75 Hard)</h3>
+            <div class="mock-list">
+              <div class="mock-row"><span>Workouts</span><span>10 pts each (max 2)</span></div>
+              <div class="mock-row"><span>Outdoor bonus</span><span>+5 pts (max 1)</span></div>
+              <div class="mock-row"><span>Diet</span><span>10 pts</span></div>
+              <div class="mock-row"><span>Water</span><span>5 pts</span></div>
+              <div class="mock-row"><span>Reading</span><span>5 pts</span></div>
+              <div class="mock-row"><span>Progress pic</span><span>5 pts</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="settings">
+          <div class="page-header">
+            <button class="home-btn page-home-btn" aria-label="Home"></button>
+            <div class="page-title">Settings</div>
+          </div>
+          <div class="mock-card">
+            <h3>App</h3>
+            <div class="mock-list">
+              <div class="mock-row"><span>Notifications</span><span>On</span></div>
+              <div class="mock-row"><span>Streak Reset Time</span><span>12:00 AM</span></div>
+              <div class="mock-row"><span>Theme</span><span>Dark</span></div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="bottom-nav">
+          <button class="nav-btn" data-nav="settings" aria-label="Settings page">
+            <div class="hamburger"><span></span><span></span><span></span></div>
+          </button>
+          <button class="nav-btn" data-nav="log" aria-label="Log page">
+            <div class="nav-plus"></div>
+          </button>
+          <button class="nav-btn" data-nav="history" aria-label="History page">
+            <div class="chart"><span></span><span></span><span></span></div>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <script src="./wireframe.js"></script>
+  </body>
+</html>
+

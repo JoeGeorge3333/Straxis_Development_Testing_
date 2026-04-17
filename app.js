@@ -1,91 +1,105 @@
 const state = {
-  baseScore: 20,
-  workoutPoints: 15,
-  habitPoints: 15,
+  dayNumber: 12,
+  youPoints: 215,
+  oppPoints: 300,
+  tasks: {
+    diet_compliance: false,
+    water_gallon: false,
+    reading_done: false,
+    progress_photo: false,
+  },
+  workouts: {
+    w1: false,
+    w2: false,
+  },
 };
 
-const tabButtons = document.querySelectorAll("[data-tab-target]");
-const tabPanels = document.querySelectorAll("[data-tab-panel]");
-const scoreNode = document.getElementById("dailyScore");
-const ringNode = document.getElementById("ringProgress");
-const workoutForm = document.getElementById("workoutForm");
-const workoutList = document.getElementById("workoutList");
-const habitInputs = document.querySelectorAll(".habit-item input");
-const joinLeagueButton = document.getElementById("joinLeagueButton");
-const joinModal = document.getElementById("joinModal");
+const nodeDay = document.getElementById("wfDayNumber");
+const nodeYou = document.getElementById("wfYouPoints");
+const nodeOpp = document.getElementById("wfOppPoints");
+const nodeYou2 = document.getElementById("wfYouPoints2");
+const nodeOpp2 = document.getElementById("wfOppPoints2");
+const nodeFill = document.getElementById("wfProgressFill");
+const calendarButton = document.getElementById("wfCalendarButton");
 
-function activateTab(target) {
-  tabPanels.forEach((panel) => {
-    panel.classList.toggle("is-active", panel.dataset.tabPanel === target);
+const taskButtons = Array.from(document.querySelectorAll(".wf-task[data-task]"));
+const workoutPills = Array.from(document.querySelectorAll(".wf-pill[data-workout-slot]"));
+const navButtons = Array.from(document.querySelectorAll(".wf-nav-btn"));
+
+function computeBonus() {
+  let bonus = 0;
+  for (const button of taskButtons) {
+    const key = button.dataset.task;
+    const points = Number(button.dataset.points || 0);
+    if (key && state.tasks[key]) bonus += points;
+  }
+  if (state.workouts.w1) bonus += 10;
+  if (state.workouts.w2) bonus += 10;
+  return bonus;
+}
+
+function render() {
+  nodeDay.textContent = String(state.dayNumber);
+
+  const bonus = computeBonus();
+  const youTotal = state.youPoints + bonus;
+
+  nodeYou.textContent = String(youTotal);
+  nodeOpp.textContent = String(state.oppPoints);
+  nodeYou2.textContent = `${youTotal} pts`;
+  nodeOpp2.textContent = `${state.oppPoints} pts`;
+
+  const pct = youTotal / Math.max(youTotal + state.oppPoints, 1);
+  nodeFill.style.width = `${Math.round(pct * 100)}%`;
+
+  taskButtons.forEach((button) => {
+    const key = button.dataset.task;
+    button.classList.toggle("is-done", !!(key && state.tasks[key]));
   });
 
-  tabButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.tabTarget === target);
+  workoutPills.forEach((pill) => {
+    const slot = pill.dataset.workoutSlot;
+    const isDone = slot === "1" ? state.workouts.w1 : slot === "2" ? state.workouts.w2 : false;
+    pill.classList.toggle("is-done", isDone);
   });
 }
 
-function renderScore() {
-  const score = state.baseScore + state.workoutPoints + state.habitPoints;
-  const circumference = 301.59;
-  const progress = Math.min(score / 50, 1);
-  const offset = circumference - circumference * progress;
-
-  scoreNode.textContent = String(score);
-  ringNode.style.strokeDashoffset = String(offset.toFixed(2));
+function toggleTask(taskKey) {
+  state.tasks[taskKey] = !state.tasks[taskKey];
+  render();
 }
 
-function updateHabitPoints() {
-  state.habitPoints = Array.from(habitInputs).reduce((total, input) => {
-    return total + (input.checked ? Number(input.dataset.points) : 0);
-  }, 0);
-
-  renderScore();
+function toggleWorkout(slot) {
+  if (slot === "1") state.workouts.w1 = !state.workouts.w1;
+  if (slot === "2") state.workouts.w2 = !state.workouts.w2;
+  render();
 }
 
-tabButtons.forEach((button) => {
-  button.addEventListener("click", () => activateTab(button.dataset.tabTarget));
+taskButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const taskKey = button.dataset.task;
+    if (!taskKey) return;
+    toggleTask(taskKey);
+  });
 });
 
-habitInputs.forEach((input) => {
-  input.addEventListener("change", updateHabitPoints);
+workoutPills.forEach((pill) => {
+  pill.addEventListener("click", () => {
+    const slot = pill.dataset.workoutSlot;
+    if (!slot) return;
+    toggleWorkout(slot);
+  });
 });
 
-workoutForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const duration = Number(document.getElementById("durationInput").value);
-  const notes = document.getElementById("notesInput").value.trim() || "Workout logged";
-  const isOutdoor = document.getElementById("outdoorInput").checked;
-
-  const item = document.createElement("article");
-  item.className = "workout-item";
-  item.innerHTML = `
-    <div>
-      <strong>${duration} min session</strong>
-      <p>${notes}</p>
-    </div>
-    <span class="badge ${isOutdoor ? "badge-gold" : "badge-outline"}">
-      ${isOutdoor ? "OUTDOOR" : "INDOOR"}
-    </span>
-  `;
-
-  workoutList.prepend(item);
-  state.workoutPoints = isOutdoor ? 15 : 10;
-  renderScore();
-  activateTab("dashboard");
+calendarButton?.addEventListener("click", () => {
+  // MVP web demo: stubbed
+  alert("Calendar is a stub in the web demo. (Next: show a streak calendar modal.)");
 });
 
-joinLeagueButton.addEventListener("click", () => {
-  if (typeof joinModal.showModal === "function") {
-    joinModal.showModal();
-  }
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    navButtons.forEach((b) => b.classList.toggle("is-active", b === button));
+  });
 });
 
-joinModal.addEventListener("close", () => {
-  if (joinModal.returnValue === "confirm") {
-    joinLeagueButton.textContent = "League joined";
-  }
-});
-
-activateTab("dashboard");
-updateHabitPoints();
+render();

@@ -64,314 +64,135 @@
           </div>
 
           <div class="app-shell">
-            <header class="app-header">
-              <div>
-                <p class="kicker">Challenge accepted</p>
-                <h2>Day 12 of 75</h2>
-              </div>
-              <button type="button" class="ghost-chip" id="joinLeagueButton">Join league</button>
-            </header>
+            <section class="wf-screen" aria-label="Wireframe demo screen">
+              <header class="wf-top">
+                <div class="wf-avatar" aria-label="User avatar">JG</div>
 
-            <section class="hero-panel">
-              <div class="hero-copy">
-                <p class="hero-label">Today’s score</p>
-                <div class="score-line">
-                  <strong id="dailyScore">35</strong>
-                  <span>/ 50</span>
+                <div class="wf-day">
+                  <div class="wf-kicker">STREAK / DAY</div>
+                  <div class="wf-day-box">
+                    <span>DAY</span>
+                    <strong id="wfDayNumber">12</strong>
+                  </div>
                 </div>
-                <p class="hero-subtext">Your squad is watching. Lock in the last 15 points.</p>
-              </div>
-              <div class="score-ring">
-                <svg viewBox="0 0 120 120" class="ring-chart" aria-hidden="true">
-                  <circle cx="60" cy="60" r="48" class="ring-track"></circle>
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="48"
-                    class="ring-progress"
-                    id="ringProgress"
-                    stroke-dasharray="301.59"
-                    stroke-dashoffset="90.48"
-                  ></circle>
-                </svg>
-                <div class="ring-center">
-                  <span class="ring-caption">Rank</span>
-                  <strong>#2</strong>
+
+                <button type="button" class="wf-icon-button" id="wfCalendarButton" aria-label="Open streak calendar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1Zm12 8H5v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10Z"
+                    />
+                  </svg>
+                </button>
+              </header>
+
+              <section class="wf-points" aria-label="Points comparison">
+                <div class="wf-points-side">
+                  <span class="wf-small">You</span>
+                  <strong id="wfYouPoints">215</strong>
+                  <span class="wf-small">pts</span>
                 </div>
-              </div>
+
+                <div class="wf-progress">
+                  <div class="wf-progress-track">
+                    <div class="wf-progress-fill" id="wfProgressFill"></div>
+                  </div>
+                </div>
+
+                <div class="wf-points-side wf-right">
+                  <span class="wf-small">Opponent</span>
+                  <strong id="wfOppPoints">300</strong>
+                  <span class="wf-small">pts</span>
+                </div>
+              </section>
+
+              <section class="wf-matchup" aria-label="Matchup section">
+                <div class="wf-face">
+                  <div class="wf-face-circle" aria-hidden="true"></div>
+                  <div class="wf-face-meta">
+                    <strong>YOU</strong>
+                    <span id="wfYouPoints2">215 pts</span>
+                  </div>
+                </div>
+
+                <div class="wf-vs">V.S.</div>
+
+                <div class="wf-face wf-face-opponent">
+                  <div class="wf-face-circle wf-face-circle-opponent" aria-hidden="true"></div>
+                  <div class="wf-face-meta">
+                    <strong>OPP</strong>
+                    <span id="wfOppPoints2">300 pts</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="wf-tasks" aria-label="Daily tasks">
+                <div class="wf-task wf-workouts" aria-label="Workouts">
+                  <div class="wf-task-left">
+                    <button type="button" class="wf-pill" data-workout-slot="1" aria-label="Toggle workout 1">
+                      <span>W1</span>
+                      <span class="wf-pill-mark" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="wf-pill" data-workout-slot="2" aria-label="Toggle workout 2">
+                      <span>W2</span>
+                      <span class="wf-pill-mark" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <button type="button" class="wf-plus" aria-label="Workout options">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M11 5a1 1 0 0 1 2 0v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5Z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <button type="button" class="wf-task" data-task="diet_compliance" data-points="10">
+                  <span class="wf-circle" aria-hidden="true"></span>
+                  <span class="wf-task-label">Nutrition</span>
+                  <span class="wf-task-right">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill="currentColor" d="M11 5a1 1 0 0 1 2 0v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5Z" />
+                    </svg>
+                  </span>
+                </button>
+
+                <button type="button" class="wf-task" data-task="water_gallon" data-points="5">
+                  <span class="wf-circle" aria-hidden="true"></span>
+                  <span class="wf-task-label">Water Consumption</span>
+                </button>
+
+                <button type="button" class="wf-task" data-task="reading_done" data-points="5">
+                  <span class="wf-circle" aria-hidden="true"></span>
+                  <span class="wf-task-label">Read 10 Pages</span>
+                </button>
+
+                <button type="button" class="wf-task" data-task="progress_photo" data-points="5">
+                  <span class="wf-circle" aria-hidden="true"></span>
+                  <span class="wf-task-label">Progress Pic</span>
+                </button>
+              </section>
+
+              <footer class="wf-bottom-nav" aria-label="Bottom navigation">
+                <button type="button" class="wf-nav-btn is-active" data-nav="menu" aria-label="Menu">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" />
+                  </svg>
+                </button>
+                <button type="button" class="wf-nav-btn" data-nav="add" aria-label="Add">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M11 5a1 1 0 0 1 2 0v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5Z" />
+                  </svg>
+                </button>
+                <button type="button" class="wf-nav-btn" data-nav="stats" aria-label="Stats">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M5 20a1 1 0 0 1-1-1V5a1 1 0 1 1 2 0v14h14a1 1 0 1 1 0 2H5Zm4-4a1 1 0 0 1-1-1V9a1 1 0 1 1 2 0v6a1 1 0 0 1-1 1Zm5 0a1 1 0 0 1-1-1V7a1 1 0 1 1 2 0v8a1 1 0 0 1-1 1Zm5 0a1 1 0 0 1-1-1v-4a1 1 0 1 1 2 0v4a1 1 0 0 1-1 1Z" />
+                  </svg>
+                </button>
+              </footer>
             </section>
-
-            <nav class="segment-tabs" aria-label="Primary sections">
-              <button type="button" class="segment-tab is-active" data-tab-target="dashboard">Dashboard</button>
-              <button type="button" class="segment-tab" data-tab-target="workouts">Workouts</button>
-              <button type="button" class="segment-tab" data-tab-target="habits">Habits</button>
-              <button type="button" class="segment-tab" data-tab-target="league">League</button>
-              <button type="button" class="segment-tab" data-tab-target="profile">Profile</button>
-            </nav>
-
-            <section class="tab-panels">
-              <div class="tab-panel is-active" data-tab-panel="dashboard">
-                <article class="card focus-card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Streak status</p>
-                      <h3>12 straight days</h3>
-                    </div>
-                    <span class="badge badge-gold">ON FIRE</span>
-                  </div>
-                  <p class="muted-copy">Perfect days this week: 4. One more and you pass Mason.</p>
-                  <div class="meter-row">
-                    <div class="meter-track">
-                      <div class="meter-fill" style="width: 74%"></div>
-                    </div>
-                    <span>74%</span>
-                  </div>
-                </article>
-
-                <div class="dashboard-grid">
-                  <article class="card compact-card">
-                    <p class="card-label">Morning workout</p>
-                    <strong>45 min</strong>
-                    <span>Outdoor run at 7:10 AM</span>
-                  </article>
-                  <article class="card compact-card">
-                    <p class="card-label">League spread</p>
-                    <strong>+15</strong>
-                    <span>points behind first</span>
-                  </article>
-                </div>
-
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Tonight’s checklist</p>
-                      <h3>Close the day strong</h3>
-                    </div>
-                  </div>
-                  <ul class="task-preview">
-                    <li><span class="task-dot is-done"></span>Diet locked</li>
-                    <li><span class="task-dot is-done"></span>Water gallon finished</li>
-                    <li><span class="task-dot"></span>Read 10 pages</li>
-                    <li><span class="task-dot"></span>Progress photo</li>
-                  </ul>
-                </article>
-              </div>
-
-              <div class="tab-panel" data-tab-panel="workouts">
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Log workout</p>
-                      <h3>Earn the next 15</h3>
-                    </div>
-                    <span class="badge badge-outline">2 max per day</span>
-                  </div>
-
-                  <form class="workout-form" id="workoutForm">
-                    <label>
-                      Duration
-                      <input type="number" min="1" value="45" id="durationInput" />
-                    </label>
-                    <label>
-                      Notes
-                      <input type="text" value="Evening lift session" id="notesInput" />
-                    </label>
-                    <label class="toggle-row">
-                      <span>Outdoor session</span>
-                      <input type="checkbox" id="outdoorInput" />
-                    </label>
-                    <button type="submit" class="primary-button">Log workout</button>
-                  </form>
-                </article>
-
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Today’s logs</p>
-                      <h3>Workout feed</h3>
-                    </div>
-                  </div>
-                  <div class="workout-list" id="workoutList">
-                    <article class="workout-item">
-                      <div>
-                        <strong>45 min run</strong>
-                        <p>7:10 AM</p>
-                      </div>
-                      <span class="badge badge-gold">OUTDOOR</span>
-                    </article>
-                  </div>
-                </article>
-              </div>
-
-              <div class="tab-panel" data-tab-panel="habits">
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Honor system</p>
-                      <h3>Daily habits</h3>
-                    </div>
-                    <span class="badge badge-gold">15 pts open</span>
-                  </div>
-
-                  <div class="habit-list">
-                    <label class="habit-item">
-                      <input type="checkbox" data-points="10" checked />
-                      <span class="habit-copy">
-                        <strong>Diet compliance</strong>
-                        <small>No cheats. No excuses.</small>
-                      </span>
-                      <span class="habit-points">10</span>
-                    </label>
-                    <label class="habit-item">
-                      <input type="checkbox" data-points="5" checked />
-                      <span class="habit-copy">
-                        <strong>Water gallon</strong>
-                        <small>Hydration target complete.</small>
-                      </span>
-                      <span class="habit-points">5</span>
-                    </label>
-                    <label class="habit-item">
-                      <input type="checkbox" data-points="5" />
-                      <span class="habit-copy">
-                        <strong>Read 10 pages</strong>
-                        <small>Progress beats hype.</small>
-                      </span>
-                      <span class="habit-points">5</span>
-                    </label>
-                    <label class="habit-item">
-                      <input type="checkbox" data-points="5" />
-                      <span class="habit-copy">
-                        <strong>Progress photo</strong>
-                        <small>MVP uses honor-system check-in.</small>
-                      </span>
-                      <span class="habit-points">5</span>
-                    </label>
-                  </div>
-                </article>
-              </div>
-
-              <div class="tab-panel" data-tab-panel="league">
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Active league</p>
-                      <h3>Built Through Fire</h3>
-                    </div>
-                    <span class="badge badge-outline">8 members</span>
-                  </div>
-
-                  <div class="leaderboard">
-                    <div class="leaderboard-row">
-                      <span>1</span>
-                      <div>
-                        <strong>Mason</strong>
-                        <p>1,280 pts</p>
-                      </div>
-                      <span class="trend">+50</span>
-                    </div>
-                    <div class="leaderboard-row is-user">
-                      <span>2</span>
-                      <div>
-                        <strong>You</strong>
-                        <p>1,265 pts</p>
-                      </div>
-                      <span class="trend">+35</span>
-                    </div>
-                    <div class="leaderboard-row">
-                      <span>3</span>
-                      <div>
-                        <strong>Kira</strong>
-                        <p>1,240 pts</p>
-                      </div>
-                      <span class="trend">+40</span>
-                    </div>
-                    <div class="leaderboard-row">
-                      <span>4</span>
-                      <div>
-                        <strong>Dev</strong>
-                        <p>1,210 pts</p>
-                      </div>
-                      <span class="trend">+25</span>
-                    </div>
-                  </div>
-                </article>
-
-                <article class="card">
-                  <div class="card-heading">
-                    <div>
-                      <p class="card-label">Feed</p>
-                      <h3>Squad activity</h3>
-                    </div>
-                  </div>
-                  <div class="feed-list">
-                    <article class="feed-item">
-                      <strong>Mason posted a perfect 50</strong>
-                      <p>“No shortcuts. Locked.”</p>
-                    </article>
-                    <article class="feed-item">
-                      <strong>Kira logged an outdoor ride</strong>
-                      <p>45 mins at 6:22 AM</p>
-                    </article>
-                    <article class="feed-item">
-                      <strong>You closed diet + water</strong>
-                      <p>15 points secured</p>
-                    </article>
-                  </div>
-                </article>
-              </div>
-
-              <div class="tab-panel" data-tab-panel="profile">
-                <article class="card profile-card">
-                  <div class="profile-avatar">JG</div>
-                  <div>
-                    <p class="card-label">Profile</p>
-                    <h3>Joseph George</h3>
-                    <p class="muted-copy">Earning the edge since April 3</p>
-                  </div>
-                </article>
-
-                <article class="card settings-list">
-                  <div class="settings-row">
-                    <span>Username</span>
-                    <strong>@joseph</strong>
-                  </div>
-                  <div class="settings-row">
-                    <span>Primary challenge</span>
-                    <strong>75 Hard</strong>
-                  </div>
-                  <div class="settings-row">
-                    <span>Total perfect days</span>
-                    <strong>9</strong>
-                  </div>
-                  <button class="secondary-button">Log out</button>
-                </article>
-              </div>
-            </section>
-
-            <footer class="bottom-nav" aria-label="Bottom navigation">
-              <button type="button" class="bottom-nav-item is-active" data-tab-target="dashboard">Home</button>
-              <button type="button" class="bottom-nav-item" data-tab-target="workouts">Log</button>
-              <button type="button" class="bottom-nav-item" data-tab-target="habits">Habits</button>
-              <button type="button" class="bottom-nav-item" data-tab-target="league">League</button>
-              <button type="button" class="bottom-nav-item" data-tab-target="profile">Profile</button>
-            </footer>
           </div>
         </div>
       </section>
     </main>
-
-    <dialog class="join-modal" id="joinModal">
-      <form method="dialog" class="join-modal-card">
-        <p class="eyebrow">Join League</p>
-        <h2>Enter the invite code</h2>
-        <p class="muted-copy">Give the onboarding flow a quick MVP feel without overbuilding auth.</p>
-        <input type="text" value="FIRE75" aria-label="Invite code" />
-        <menu>
-          <button value="cancel" class="secondary-button">Cancel</button>
-          <button value="confirm" class="primary-button">Join now</button>
-        </menu>
-      </form>
-    </dialog>
 
     <script src="./app.js"></script>
   </body>
