@@ -1,0 +1,199 @@
+Learning Log: CORS + Frontend/Backend Connections (Travo)
+Date: 2026-04-17
+
+Goal
+----
+Make the frontend talk to the backend without Auth (yet), and understand what “CORS” does and when it matters.
+
+Project Shape (Stage 1)
+-----------------------
+Backend:
+- Django + Django REST Framework (DRF)
+- Base API path: /api/
+- Example endpoints (DRF router): /api/cities/, /api/dim-users/, /api/reviews/, /api/relationships/
+
+Frontend:
+- Expo (React Native + Expo Router)
+- Uses Redux Toolkit + async thunks to load/mutate backend data
+- Uses fetch() under the hood
+
+Two key facts:
+1) “Connecting” is just HTTP requests from frontend -> backend.
+2) “CORS” is only enforced by browsers, not by most native apps.
+
+
+Part A: What CORS Is (and why you care)
+---------------------------------------
+CORS = Cross-Origin Resource Sharing.
+
+When you run the frontend as a website (Expo Web), your browser enforces the "same-origin policy".
+That means JavaScript running at (example):
+  http://localhost:8081
+is not automatically allowed to call:
+  http://127.0.0.1:8000
+unless the backend explicitly allows it via CORS response headers.
+
+When you run the frontend as a native app (iOS/Android), CORS is generally NOT a blocker because the
+requests are not made by browser JavaScript. You can still have other network issues, but CORS is a
+browser rule.
+
+
+Part B: How We Enabled CORS in Django
+-------------------------------------
+We used the django-cors-headers package.
+
+High-level behavior:
+- In DEBUG, if you do not set CORS_ALLOWED_ORIGINS, the backend allows ALL origins.
+  This makes local development frictionless.
+- If you DO set CORS_ALLOWED_ORIGINS, CORS becomes explicit/locked down to that allow-list.
+
+Where it lives:
+- Django settings: /tmp/Travo_Final_Project_Backend/TravoBackend/TravoBackend/settings.py
+
+Important settings:
+- INSTALLED_APPS includes: corsheaders
+- MIDDLEWARE includes: corsheaders.middleware.CorsMiddleware (near the top)
+
+Dev mode config:
+- If DEBUG is true and env var CORS_ALLOWED_ORIGINS is empty:
+    CORS_ALLOW_ALL_ORIGINS = True
+
+Optional explicit allow-list:
+- Set env var (comma-separated) CORS_ALLOWED_ORIGINS, e.g.
+    CORS_ALLOWED_ORIGINS=http://localhost:8081,http://127.0.0.1:8081
+
+What that changes:
+- Django will respond with headers like:
+    Access-Control-Allow-Origin: http://localhost:8081
+  (or wildcard in allow-all mode)
+
+
+Part C: What “Preflight” Is (OPTIONS requests)
+----------------------------------------------
+Some browser requests trigger a CORS preflight:
+- Browser sends OPTIONS /api/whatever
+- Backend must respond with allowed methods/headers
+- Then browser proceeds with GET/POST/etc
+
+Preflight is common when:
+- Using non-simple headers (like Authorization)
+- Using JSON content-type
+- Using non-GET/POST methods (PUT/PATCH/DELETE)
+
+So when we add auth later (Authorization: Bearer ...), preflight becomes even more common.
+
+
+Part D: How The Frontend Connects to the Backend (Stage 1)
+----------------------------------------------------------
+We built a small network and state layer:
+
+1) API Base URL selection
+File: /tmp/DATA5570_travo_frontend/store/api.ts
+
+API_BASE_URL resolves like:
+- If EXPO_PUBLIC_API_BASE_URL is set: use it.
+- Else guess a local dev base URL:
+  - Try to use Expo host address (works when running via Expo dev server)
+  - Fallback:
+    - Android emulator: 10.0.2.2 (maps to your host machine)
+    - Other: 127.0.0.1
+  Final default:
+    http://<host>:8000/api
+
+This is important because “127.0.0.1” means different things:
+- In a browser on your computer, 127.0.0.1 is your computer (fine).
+- In an Android emulator, 127.0.0.1 is the emulator itself (not your computer), so you use 10.0.2.2.
+- On a physical phone, 127.0.0.1 is the phone (not your computer), so you must use your computer’s LAN IP.
+
+2) A tiny fetch wrapper
+File: /tmp/DATA5570_travo_frontend/store/api.ts
+
+The wrapper:
+- Builds URLs with optional query params
+- Sends JSON (Accept + Content-Type)
+- Parses JSON responses
+- Throws a readable Error when response.ok is false
+
+3) Redux store + thunks
+Files:
+- /tmp/DATA5570_travo_frontend/store/index.ts
+- /tmp/DATA5570_travo_frontend/store/travoSlice.ts
+- /tmp/DATA5570_travo_frontend/store/hooks.ts
+
+Pattern:
+Screen -> dispatch(thunk) -> thunk calls api.get/post -> reducer stores data -> screen renders from store.
+
+This is a clean separation:
+- Screens focus on UI and user interactions
+- Thunks focus on calling the backend
+- Slice state tracks:
+  - entities (cities/users/reviews/relationships)
+  - load statuses (idle/loading/succeeded/failed)
+  - last error message
+
+4) Initial loading on app startup
+File: /tmp/DATA5570_travo_frontend/app/_layout.tsx
+
+On mount, the app dispatches:
+- fetchCities()
+- fetchUsers()
+- fetchReviews()
+- fetchRelationships()
+
+So the app “hydrates” from the backend as soon as it starts.
+
+
+Part E: Why Some Frontend Fields Are “Fake” For Now
+---------------------------------------------------
+The backend FactReview model does not store:
+- an image URL for the post
+- a profile image for the user
+- price
+
+So the frontend temporarily:
+- generates avatar URLs based on username (pravatar)
+- uses a fallback review image
+- maps the API review object -> UI TravelPost object
+
+Mapping code:
+- /tmp/DATA5570_travo_frontend/lib/travel.ts
+
+This keeps UI working while the backend catches up.
+
+
+Part F: Debugging Checklist
+---------------------------
+1) Is the backend running?
+- Open: http://127.0.0.1:8000/api/
+- Or: curl http://127.0.0.1:8000/api/reviews/
+
+2) Is the frontend pointing at the right backend URL?
+- Check /tmp/DATA5570_travo_frontend/.env (or set EXPO_PUBLIC_API_BASE_URL)
+- For Expo web: EXPO_PUBLIC_API_BASE_URL=http://127.0.0.1:8000/api is usually fine.
+- For Android emulator: EXPO_PUBLIC_API_BASE_URL=http://10.0.2.2:8000/api
+- For physical phone: EXPO_PUBLIC_API_BASE_URL=http://<your-computer-LAN-IP>:8000/api
+
+3) CORS issues (web only)
+Symptoms:
+- Browser console: “CORS policy: No 'Access-Control-Allow-Origin'...”
+Fix:
+- Ensure backend has corsheaders installed and enabled
+- In dev, verify DEBUG is true OR set CORS_ALLOWED_ORIGINS properly
+
+4) Common HTTP errors
+- 404: wrong path (must include /api/ and correct trailing slash)
+- 500: backend error (check Django runserver console)
+- Network error: wrong host/IP/port, backend not reachable, firewall, phone not on same network
+
+
+Part G: Auth Later (What Will Change)
+-------------------------------------
+When Cognito auth is added:
+- Frontend will attach Authorization headers: Authorization: Bearer <access_token>
+- Backend will verify Cognito JWTs and identify the user
+- Some requests will trigger CORS preflight more often (because Authorization header)
+
+At that point we should also tighten CORS:
+- Stop allowing all origins in DEBUG if desired
+- Use explicit CORS_ALLOWED_ORIGINS for the actual frontend origins
+

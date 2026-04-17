@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STRAXIS Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="page-shell">
+      <section class="intro-panel">
+        <p class="eyebrow">STRAXIS MVP UI Prototype</p>
+        <h1>Fantasy sports intensity for the 75 Hard grind.</h1>
+        <p class="intro-copy">
+          A premium, pressure-forward concept focused on the core loop:
+          log habits, earn points, climb the board.
+        </p>
+
+        <div class="stat-strip">
+          <article class="stat-card">
+            <span class="stat-label">Brand Mood</span>
+            <strong>Forged, elite, competitive</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Daily Max</span>
+            <strong>50 points</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Primary Loop</span>
+            <strong>Log, score, compare</strong>
+          </article>
+        </div>
+
+        <div class="feature-callouts">
+          <article>
+            <span>01</span>
+            <h2>Live Score Pressure</h2>
+            <p>Every habit toggle and workout log updates the daily score instantly.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h2>Squad Accountability</h2>
+            <p>League standings and activity are always one tap away.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h2>Minimal MVP Scope</h2>
+            <p>Only the surfaces needed to validate retention and competitive energy.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="device-stage" aria-label="Prototype preview">
+        <div class="device-glow"></div>
+        <div class="phone-frame">
+          <div class="phone-topbar">
+            <span>9:41</span>
+            <div class="status-icons">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="app-shell">
+            <header class="app-header">
+              <div>
+                <p class="kicker">Challenge accepted</p>
+                <h2>Day 12 of 75</h2>
+              </div>
+              <button type="button" class="ghost-chip" id="joinLeagueButton">Join league</button>
+            </header>
+
+            <section class="hero-panel">
+              <div class="hero-copy">
+                <p class="hero-label">Today’s score</p>
+                <div class="score-line">
+                  <strong id="dailyScore">35</strong>
+                  <span>/ 50</span>
+                </div>
+                <p class="hero-subtext">Your squad is watching. Lock in the last 15 points.</p>
+              </div>
+              <div class="score-ring">
+                <svg viewBox="0 0 120 120" class="ring-chart" aria-hidden="true">
+                  <circle cx="60" cy="60" r="48" class="ring-track"></circle>
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="48"
+                    class="ring-progress"
+                    id="ringProgress"
+                    stroke-dasharray="301.59"
+                    stroke-dashoffset="90.48"
+                  ></circle>
+                </svg>
+                <div class="ring-center">
+                  <span class="ring-caption">Rank</span>
+                  <strong>#2</strong>
+                </div>
+              </div>
+            </section>
+
+            <nav class="segment-tabs" aria-label="Primary sections">
+              <button type="button" class="segment-tab is-active" data-tab-target="dashboard">Dashboard</button>
+              <button type="button" class="segment-tab" data-tab-target="workouts">Workouts</button>
+              <button type="button" class="segment-tab" data-tab-target="habits">Habits</button>
+              <button type="button" class="segment-tab" data-tab-target="league">League</button>
+              <button type="button" class="segment-tab" data-tab-target="profile">Profile</button>
+            </nav>
+
+            <section class="tab-panels">
+              <div class="tab-panel is-active" data-tab-panel="dashboard">
+                <article class="card focus-card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Streak status</p>
+                      <h3>12 straight days</h3>
+                    </div>
+                    <span class="badge badge-gold">ON FIRE</span>
+                  </div>
+                  <p class="muted-copy">Perfect days this week: 4. One more and you pass Mason.</p>
+                  <div class="meter-row">
+                    <div class="meter-track">
+                      <div class="meter-fill" style="width: 74%"></div>
+                    </div>
+                    <span>74%</span>
+                  </div>
+                </article>
+
+                <div class="dashboard-grid">
+                  <article class="card compact-card">
+                    <p class="card-label">Morning workout</p>
+                    <strong>45 min</strong>
+                    <span>Outdoor run at 7:10 AM</span>
+                  </article>
+                  <article class="card compact-card">
+                    <p class="card-label">League spread</p>
+                    <strong>+15</strong>
+                    <span>points behind first</span>
+                  </article>
+                </div>
+
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Tonight’s checklist</p>
+                      <h3>Close the day strong</h3>
+                    </div>
+                  </div>
+                  <ul class="task-preview">
+                    <li><span class="task-dot is-done"></span>Diet locked</li>
+                    <li><span class="task-dot is-done"></span>Water gallon finished</li>
+                    <li><span class="task-dot"></span>Read 10 pages</li>
+                    <li><span class="task-dot"></span>Progress photo</li>
+                  </ul>
+                </article>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="workouts">
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Log workout</p>
+                      <h3>Earn the next 15</h3>
+                    </div>
+                    <span class="badge badge-outline">2 max per day</span>
+                  </div>
+
+                  <form class="workout-form" id="workoutForm">
+                    <label>
+                      Duration
+                      <input type="number" min="1" value="45" id="durationInput" />
+                    </label>
+                    <label>
+                      Notes
+                      <input type="text" value="Evening lift session" id="notesInput" />
+                    </label>
+                    <label class="toggle-row">
+                      <span>Outdoor session</span>
+                      <input type="checkbox" id="outdoorInput" />
+                    </label>
+                    <button type="submit" class="primary-button">Log workout</button>
+                  </form>
+                </article>
+
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Today’s logs</p>
+                      <h3>Workout feed</h3>
+                    </div>
+                  </div>
+                  <div class="workout-list" id="workoutList">
+                    <article class="workout-item">
+                      <div>
+                        <strong>45 min run</strong>
+                        <p>7:10 AM</p>
+                      </div>
+                      <span class="badge badge-gold">OUTDOOR</span>
+                    </article>
+                  </div>
+                </article>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="habits">
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Honor system</p>
+                      <h3>Daily habits</h3>
+                    </div>
+                    <span class="badge badge-gold">15 pts open</span>
+                  </div>
+
+                  <div class="habit-list">
+                    <label class="habit-item">
+                      <input type="checkbox" data-points="10" checked />
+                      <span class="habit-copy">
+                        <strong>Diet compliance</strong>
+                        <small>No cheats. No excuses.</small>
+                      </span>
+                      <span class="habit-points">10</span>
+                    </label>
+                    <label class="habit-item">
+                      <input type="checkbox" data-points="5" checked />
+                      <span class="habit-copy">
+                        <strong>Water gallon</strong>
+                        <small>Hydration target complete.</small>
+                      </span>
+                      <span class="habit-points">5</span>
+                    </label>
+                    <label class="habit-item">
+                      <input type="checkbox" data-points="5" />
+                      <span class="habit-copy">
+                        <strong>Read 10 pages</strong>
+                        <small>Progress beats hype.</small>
+                      </span>
+                      <span class="habit-points">5</span>
+                    </label>
+                    <label class="habit-item">
+                      <input type="checkbox" data-points="5" />
+                      <span class="habit-copy">
+                        <strong>Progress photo</strong>
+                        <small>MVP uses honor-system check-in.</small>
+                      </span>
+                      <span class="habit-points">5</span>
+                    </label>
+                  </div>
+                </article>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="league">
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Active league</p>
+                      <h3>Built Through Fire</h3>
+                    </div>
+                    <span class="badge badge-outline">8 members</span>
+                  </div>
+
+                  <div class="leaderboard">
+                    <div class="leaderboard-row">
+                      <span>1</span>
+                      <div>
+                        <strong>Mason</strong>
+                        <p>1,280 pts</p>
+                      </div>
+                      <span class="trend">+50</span>
+                    </div>
+                    <div class="leaderboard-row is-user">
+                      <span>2</span>
+                      <div>
+                        <strong>You</strong>
+                        <p>1,265 pts</p>
+                      </div>
+                      <span class="trend">+35</span>
+                    </div>
+                    <div class="leaderboard-row">
+                      <span>3</span>
+                      <div>
+                        <strong>Kira</strong>
+                        <p>1,240 pts</p>
+                      </div>
+                      <span class="trend">+40</span>
+                    </div>
+                    <div class="leaderboard-row">
+                      <span>4</span>
+                      <div>
+                        <strong>Dev</strong>
+                        <p>1,210 pts</p>
+                      </div>
+                      <span class="trend">+25</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <div class="card-heading">
+                    <div>
+                      <p class="card-label">Feed</p>
+                      <h3>Squad activity</h3>
+                    </div>
+                  </div>
+                  <div class="feed-list">
+                    <article class="feed-item">
+                      <strong>Mason posted a perfect 50</strong>
+                      <p>“No shortcuts. Locked.”</p>
+                    </article>
+                    <article class="feed-item">
+                      <strong>Kira logged an outdoor ride</strong>
+                      <p>45 mins at 6:22 AM</p>
+                    </article>
+                    <article class="feed-item">
+                      <strong>You closed diet + water</strong>
+                      <p>15 points secured</p>
+                    </article>
+                  </div>
+                </article>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="profile">
+                <article class="card profile-card">
+                  <div class="profile-avatar">JG</div>
+                  <div>
+                    <p class="card-label">Profile</p>
+                    <h3>Joseph George</h3>
+                    <p class="muted-copy">Earning the edge since April 3</p>
+                  </div>
+                </article>
+
+                <article class="card settings-list">
+                  <div class="settings-row">
+                    <span>Username</span>
+                    <strong>@joseph</strong>
+                  </div>
+                  <div class="settings-row">
+                    <span>Primary challenge</span>
+                    <strong>75 Hard</strong>
+                  </div>
+                  <div class="settings-row">
+                    <span>Total perfect days</span>
+                    <strong>9</strong>
+                  </div>
+                  <button class="secondary-button">Log out</button>
+                </article>
+              </div>
+            </section>
+
+            <footer class="bottom-nav" aria-label="Bottom navigation">
+              <button type="button" class="bottom-nav-item is-active" data-tab-target="dashboard">Home</button>
+              <button type="button" class="bottom-nav-item" data-tab-target="workouts">Log</button>
+              <button type="button" class="bottom-nav-item" data-tab-target="habits">Habits</button>
+              <button type="button" class="bottom-nav-item" data-tab-target="league">League</button>
+              <button type="button" class="bottom-nav-item" data-tab-target="profile">Profile</button>
+            </footer>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="join-modal" id="joinModal">
+      <form method="dialog" class="join-modal-card">
+        <p class="eyebrow">Join League</p>
+        <h2>Enter the invite code</h2>
+        <p class="muted-copy">Give the onboarding flow a quick MVP feel without overbuilding auth.</p>
+        <input type="text" value="FIRE75" aria-label="Invite code" />
+        <menu>
+          <button value="cancel" class="secondary-button">Cancel</button>
+          <button value="confirm" class="primary-button">Join now</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

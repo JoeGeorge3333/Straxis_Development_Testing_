@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STRAXIS Brand Design Document</title>
+    <style>
+      :root {
+        --void: #0d0d0d;
+        --carbon: #171717;
+        --steel: #2a2a2a;
+        --ash: #6f6a61;
+        --bone: #e8e3d8;
+        --gold: #d4af37;
+        --gold-soft: #e7c96a;
+        --ember: #a34820;
+        --success: #2e7d32;
+        --error: #c62828;
+        --surface: #141414;
+        --surface-elevated: #1c1c1c;
+        --surface-soft: #222222;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(212, 175, 55, 0.35);
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+        --display: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+        --body: "Avenir Next", "Segoe UI", sans-serif;
+        --radius-lg: 28px;
+        --radius-md: 18px;
+        --radius-sm: 12px;
+        --space-1: 8px;
+        --space-2: 12px;
+        --space-3: 16px;
+        --space-4: 24px;
+        --space-5: 32px;
+        --space-6: 48px;
+        --space-7: 72px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--body);
+        color: var(--bone);
+        background:
+          radial-gradient(circle at top left, rgba(212, 175, 55, 0.13), transparent 26%),
+          radial-gradient(circle at 85% 12%, rgba(163, 72, 32, 0.12), transparent 20%),
+          linear-gradient(180deg, #090909, #111111 35%, #0c0c0c 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .frame {
+        max-width: 1360px;
+        margin: 0 auto;
+        padding: var(--space-5);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: var(--space-5);
+        align-items: end;
+        min-height: 86vh;
+      }
+
+      .eyebrow,
+      .section-label,
+      .mini-label {
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 12px;
+        color: var(--gold);
+        margin: 0 0 var(--space-2);
+      }
+
+      .hero h1,
+      .display-wordmark,
+      .card-title,
+      .type-sample-display {
+        font-family: var(--display);
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(64px, 10vw, 122px);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        max-width: 8ch;
+      }
+
+      .hero p {
+        max-width: 36rem;
+        color: rgba(232, 227, 216, 0.82);
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .hero-actions,
+      .nav-pills,
+      .principle-grid,
+      .token-grid,
+      .component-grid,
+      .voice-grid,
+      .layout-grid,
+      .sample-grid {
+        display: grid;
+        gap: var(--space-3);
+      }
+
+      .hero-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: var(--space-4);
+      }
+
+      .pill,
+      .surface,
+      .swatch,
+      .component-card,
+      .voice-card,
+      .layout-card,
+      .sample-panel {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow);
+      }
+
+      .pill {
+        padding: var(--space-3);
+      }
+
+      .pill span {
+        display: block;
+        color: var(--ash);
+        font-size: 12px;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-brand {
+        padding: var(--space-5);
+        background:
+          radial-gradient(circle at top right, rgba(212, 175, 55, 0.16), transparent 28%),
+          linear-gradient(180deg, rgba(23, 23, 23, 0.97), rgba(12, 12, 12, 0.98));
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-brand::after {
+        content: "";
+        position: absolute;
+        right: -60px;
+        bottom: -60px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 66%);
+      }
+
+      .display-wordmark {
+        font-size: clamp(44px, 7vw, 88px);
+        line-height: 0.92;
+        letter-spacing: 0.16em;
+        color: var(--gold);
+        margin: 0;
+      }
+
+      .tagline {
+        margin: 14px 0 24px;
+        color: var(--bone);
+        font-size: 15px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+      }
+
+      .nav-pills {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .nav-pills div {
+        padding: 14px 16px;
+        border-radius: 999px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--ash);
+      }
+
+      .nav-pills .is-active {
+        background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+        color: var(--void);
+        font-weight: 700;
+      }
+
+      .score-card {
+        margin-top: var(--space-4);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        background:
+          linear-gradient(140deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.04) 48%, rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(212, 175, 55, 0.25);
+      }
+
+      .score-number {
+        font-family: var(--display);
+        font-size: 72px;
+        line-height: 0.9;
+        margin: 8px 0;
+      }
+
+      .section {
+        padding: var(--space-7) 0 0;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-4);
+        align-items: end;
+        margin-bottom: var(--space-4);
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(32px, 4vw, 54px);
+        line-height: 0.95;
+        text-transform: uppercase;
+        font-family: var(--display);
+      }
+
+      .section-header p {
+        max-width: 38rem;
+        color: rgba(232, 227, 216, 0.72);
+        line-height: 1.7;
+      }
+
+      .principle-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .surface {
+        padding: var(--space-4);
+      }
+
+      .surface h3,
+      .component-card h3,
+      .voice-card h3,
+      .layout-card h3,
+      .sample-panel h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+      }
+
+      .surface p,
+      .component-card p,
+      .voice-card p,
+      .layout-card p,
+      .sample-panel p,
+      .sample-panel li {
+        margin: 0;
+        color: rgba(232, 227, 216, 0.72);
+        line-height: 1.7;
+      }
+
+      .token-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+
+      .color-stack {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: var(--space-3);
+      }
+
+      .swatch {
+        overflow: hidden;
+      }
+
+      .swatch-color {
+        height: 110px;
+      }
+
+      .swatch-meta {
+        padding: var(--space-3);
+        background: var(--surface);
+      }
+
+      .swatch-meta strong,
+      .sample-panel strong,
+      .layout-card strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .token-list {
+        display: grid;
+        gap: var(--space-2);
+      }
+
+      .token-row {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-2);
+        padding: 14px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .type-scale {
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .type-row {
+        padding-bottom: var(--space-3);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .type-row:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .type-meta {
+        color: var(--ash);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        margin-bottom: 10px;
+      }
+
+      .type-sample-display {
+        font-size: 64px;
+        line-height: 0.88;
+        letter-spacing: 0.08em;
+      }
+
+      .type-sample-h1 {
+        font-size: 42px;
+        font-weight: 700;
+      }
+
+      .type-sample-h2 {
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .type-sample-body {
+        font-size: 17px;
+        color: rgba(232, 227, 216, 0.82);
+      }
+
+      .type-sample-caption {
+        font-size: 12px;
+        color: var(--ash);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .component-grid,
+      .voice-grid,
+      .layout-grid,
+      .sample-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .component-card,
+      .voice-card,
+      .layout-card,
+      .sample-panel {
+        padding: var(--space-4);
+      }
+
+      .button-row,
+      .chip-row,
+      .metric-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-top: var(--space-3);
+      }
+
+      .btn {
+        padding: 14px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+        color: var(--void);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+
+      .btn-ghost {
+        background: var(--surface-soft);
+        color: var(--bone);
+      }
+
+      .chip {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--ash);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .chip-gold {
+        color: var(--gold);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        background: rgba(212, 175, 55, 0.08);
+      }
+
+      .meter {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--surface-soft);
+        overflow: hidden;
+        margin-top: var(--space-3);
+      }
+
+      .meter > div {
+        width: 74%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+      }
+
+      .voice-card ul,
+      .sample-panel ul {
+        margin: var(--space-3) 0 0;
+        padding-left: 18px;
+      }
+
+      .voice-card.say {
+        border-color: rgba(212, 175, 55, 0.28);
+      }
+
+      .voice-card.avoid {
+        border-color: rgba(255, 255, 255, 0.06);
+      }
+
+      .voice-card.avoid li {
+        color: rgba(232, 227, 216, 0.52);
+        text-decoration: line-through;
+      }
+
+      .layout-card strong {
+        color: var(--gold);
+      }
+
+      .sample-screen {
+        margin-top: var(--space-3);
+        padding: var(--space-4);
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(11, 11, 11, 0.98));
+        border: 1px solid var(--line);
+      }
+
+      .sample-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: var(--space-3);
+      }
+
+      .sample-top h4 {
+        margin: 6px 0 0;
+        font-family: var(--display);
+        font-size: 38px;
+        text-transform: uppercase;
+        line-height: 0.92;
+      }
+
+      .sample-metric {
+        margin-top: var(--space-3);
+        padding: var(--space-3);
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(255, 255, 255, 0.03));
+        border: 1px solid rgba(212, 175, 55, 0.25);
+      }
+
+      .sample-metric .big {
+        font-family: var(--display);
+        font-size: 54px;
+        line-height: 0.9;
+      }
+
+      .sample-list {
+        display: grid;
+        gap: 12px;
+        margin-top: var(--space-3);
+      }
+
+      .sample-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2);
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 16px;
+      }
+
+      .footer-note {
+        padding: var(--space-7) 0 var(--space-5);
+        color: rgba(232, 227, 216, 0.6);
+        text-align: center;
+      }
+
+      @media (max-width: 1080px) {
+        .hero,
+        .token-grid,
+        .principle-grid,
+        .component-grid,
+        .voice-grid,
+        .layout-grid,
+        .sample-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-actions,
+        .nav-pills,
+        .color-stack {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .frame {
+          padding: var(--space-4);
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: var(--space-5);
+        }
+
+        .hero-actions,
+        .nav-pills,
+        .color-stack {
+          grid-template-columns: 1fr;
+        }
+
+        .section-header {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="frame">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Brand Design Document</p>
+          <h1>STRAXIS is discipline made visible.</h1>
+          <p>
+            This system defines the identity before the interface. STRAXIS should
+            feel less like a wellness app and more like a competitive ritual:
+            premium, pressurized, and earned. Every UI decision should reinforce
+            accountability, status, momentum, and edge.
+          </p>
+
+          <div class="hero-actions">
+            <div class="pill">
+              <span>Category</span>
+              Competitive fitness accountability
+            </div>
+            <div class="pill">
+              <span>Audience</span>
+              Ambitious friend groups and self-optimizers
+            </div>
+            <div class="pill">
+              <span>Core Loop</span>
+              Log, score, compare
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-brand">
+          <p class="section-label">Wordmark</p>
+          <h2 class="display-wordmark">STRAXIS</h2>
+          <div class="tagline">Challenge Accepted</div>
+
+          <div class="nav-pills">
+            <div class="is-active">Dashboard</div>
+            <div>Habits</div>
+            <div>League</div>
+          </div>
+
+          <div class="score-card">
+            <p class="mini-label">Hero Metric</p>
+            <div class="score-number">35 / 50</div>
+            <p>Your squad is watching. Finish the day with intent.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Brand Positioning</p>
+            <h2>What STRAXIS Feels Like</h2>
+          </div>
+          <p>
+            STRAXIS is not soft motivation. It is a premium accountability
+            environment built around pressure, ritual, and competitive proof.
+            The tone should feel composed and elite, never cartoonishly intense.
+          </p>
+        </div>
+
+        <div class="principle-grid">
+          <article class="surface">
+            <h3>Forged</h3>
+            <p>
+              Textures, contrast, and language should suggest grit and heat,
+              but remain clean and intentional.
+            </p>
+          </article>
+          <article class="surface">
+            <h3>Competitive</h3>
+            <p>
+              Ranking, point totals, streaks, and gain or loss should feel
+              central, not secondary.
+            </p>
+          </article>
+          <article class="surface">
+            <h3>Premium</h3>
+            <p>
+              Dark surfaces, controlled spacing, and restrained highlights make
+              the product feel elevated rather than gamified.
+            </p>
+          </article>
+          <article class="surface">
+            <h3>Focused</h3>
+            <p>
+              The MVP supports one loop. Avoid decorative features that dilute
+              the tension of daily completion.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Design Tokens</p>
+            <h2>Color System</h2>
+          </div>
+          <p>
+            The palette should read like metal, shadow, heat, and reward. Gold
+            is precious and should be used with discipline. It marks progress,
+            status, and calls to action.
+          </p>
+        </div>
+
+        <div class="token-grid">
+          <div class="surface">
+            <div class="color-stack">
+              <div class="swatch">
+                <div class="swatch-color" style="background:#0d0d0d"></div>
+                <div class="swatch-meta">
+                  <strong>Void</strong>
+                  <div>#0D0D0D</div>
+                </div>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#171717"></div>
+                <div class="swatch-meta">
+                  <strong>Carbon</strong>
+                  <div>#171717</div>
+                </div>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#2a2a2a"></div>
+                <div class="swatch-meta">
+                  <strong>Steel</strong>
+                  <div>#2A2A2A</div>
+                </div>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#d4af37"></div>
+                <div class="swatch-meta">
+                  <strong>Gold</strong>
+                  <div>#D4AF37</div>
+                </div>
+              </div>
+              <div class="swatch">
+                <div class="swatch-color" style="background:#e8e3d8"></div>
+                <div class="swatch-meta" style="color:#0d0d0d">
+                  <strong>Bone</strong>
+                  <div>#E8E3D8</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="surface">
+            <div class="token-list">
+              <div class="token-row">
+                <span>Primary background</span>
+                <strong>Void / Carbon</strong>
+              </div>
+              <div class="token-row">
+                <span>Primary text</span>
+                <strong>Bone</strong>
+              </div>
+              <div class="token-row">
+                <span>Accent and CTA</span>
+                <strong>Gold</strong>
+              </div>
+              <div class="token-row">
+                <span>Muted labels</span>
+                <strong>Ash</strong>
+              </div>
+              <div class="token-row">
+                <span>Success state</span>
+                <strong>#2E7D32</strong>
+              </div>
+              <div class="token-row">
+                <span>Error state</span>
+                <strong>#C62828</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Typography</p>
+            <h2>Type Should Hit Hard</h2>
+          </div>
+          <p>
+            Use condensed, assertive display typography for identity and major
+            metrics. Supporting text stays clean and calm so the interface
+            remains readable even when the mood is intense.
+          </p>
+        </div>
+
+        <div class="surface type-scale">
+          <div class="type-row">
+            <div class="type-meta">Display / Wordmark</div>
+            <div class="type-sample-display">STRAXIS</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Headline</div>
+            <div class="type-sample-h1">Day 12 of 75</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Section Heading</div>
+            <div class="type-sample-h2">Leaderboard Pressure</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Body Copy</div>
+            <div class="type-sample-body">
+              Finish the day with intent. One more task closes the gap.
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Caption / Label</div>
+            <div class="type-sample-caption">Today’s Score</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Voice</p>
+            <h2>Language Rules</h2>
+          </div>
+          <p>
+            The product voice is disciplined and direct. It should feel like a
+            sharp training partner, not a cheerleader and not a drill sergeant.
+          </p>
+        </div>
+
+        <div class="voice-grid">
+          <article class="voice-card say">
+            <h3>Say This</h3>
+            <ul>
+              <li>Challenge accepted</li>
+              <li>Earn your edge</li>
+              <li>Built through fire</li>
+              <li>No excuses. No shortcuts.</li>
+              <li>Your squad is watching</li>
+            </ul>
+          </article>
+          <article class="voice-card avoid">
+            <h3>Avoid This</h3>
+            <ul>
+              <li>Great job</li>
+              <li>You got this</li>
+              <li>Fun challenge</li>
+              <li>Wellness journey</li>
+              <li>Join our community</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Components</p>
+            <h2>UI Building Blocks</h2>
+          </div>
+          <p>
+            Components should feel solid, minimal, and earned. Use soft glass or
+            matte metal surfaces with selective gold emphasis. Do not flood the
+            interface with accents.
+          </p>
+        </div>
+
+        <div class="component-grid">
+          <article class="component-card">
+            <h3>Buttons</h3>
+            <p>
+              Primary actions are gold and high contrast. Secondary actions use
+              outlines. Tertiary actions sit on steel surfaces.
+            </p>
+            <div class="button-row">
+              <div class="btn btn-primary">Log Workout</div>
+              <div class="btn btn-secondary">Join League</div>
+              <div class="btn btn-ghost">Cancel</div>
+            </div>
+          </article>
+
+          <article class="component-card">
+            <h3>Badges and Chips</h3>
+            <p>
+              Chips call out attributes like outdoor, active, streak, and rank.
+              Gold chips indicate status that matters.
+            </p>
+            <div class="chip-row">
+              <div class="chip chip-gold">Outdoor</div>
+              <div class="chip">Indoor</div>
+              <div class="chip chip-gold">On Fire</div>
+            </div>
+          </article>
+
+          <article class="component-card">
+            <h3>Cards</h3>
+            <p>
+              Cards are dense, elevated, and information-first. Priority cards
+              may receive a subtle gold glow or directional gradient.
+            </p>
+            <div class="meter"><div></div></div>
+          </article>
+
+          <article class="component-card">
+            <h3>Metrics</h3>
+            <p>
+              Numbers are hero content. Use large type for daily score, streak,
+              rank, and total points. Let the stat dominate the frame.
+            </p>
+            <div class="metric-row">
+              <div>
+                <div class="mini-label">Today</div>
+                <div class="score-number" style="font-size:52px">35</div>
+              </div>
+              <div>
+                <div class="mini-label">Rank</div>
+                <div class="score-number" style="font-size:52px">#2</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Layout Principles</p>
+            <h2>How Screens Should Be Structured</h2>
+          </div>
+          <p>
+            The interface should feel like a control panel, not a social feed
+            clone. Use hierarchy that keeps score and status near the top of the
+            viewport, with actions following immediately below.
+          </p>
+        </div>
+
+        <div class="layout-grid">
+          <article class="layout-card">
+            <strong>1. Lead with the score</strong>
+            <p>
+              The first thing users should see is where they stand today and how
+              much ground remains.
+            </p>
+          </article>
+          <article class="layout-card">
+            <strong>2. Keep the next action obvious</strong>
+            <p>
+              If a workout or habit is incomplete, the action to close it should
+              be visible without hunting.
+            </p>
+          </article>
+          <article class="layout-card">
+            <strong>3. Treat ranking as motivation</strong>
+            <p>
+              The leaderboard is not a separate utility screen. It is emotional
+              fuel for the entire product.
+            </p>
+          </article>
+          <article class="layout-card">
+            <strong>4. Show less, mean more</strong>
+            <p>
+              MVP screens should be tight and intentional. Avoid filler modules,
+              empty graphs, and decorative placeholders.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <div>
+            <p class="section-label">Applied Sample</p>
+            <h2>What This Looks Like In Product</h2>
+          </div>
+          <p>
+            This sample screen is not the final UI. It is a brand-aligned
+            composition reference showing hierarchy, tone, and visual weight.
+          </p>
+        </div>
+
+        <div class="sample-grid">
+          <article class="sample-panel">
+            <h3>Dashboard Reference</h3>
+            <p>
+              Use this as the north star for top-level screen energy and
+              information hierarchy.
+            </p>
+
+            <div class="sample-screen">
+              <div class="sample-top">
+                <div>
+                  <div class="mini-label">Challenge accepted</div>
+                  <h4>Day 12 of 75</h4>
+                </div>
+                <div class="chip chip-gold">Rank #2</div>
+              </div>
+
+              <div class="sample-metric">
+                <div class="mini-label">Today’s Score</div>
+                <div class="big">35 / 50</div>
+                <p>Finish reading and log your progress photo to close the gap.</p>
+              </div>
+
+              <div class="sample-list">
+                <div class="sample-row">
+                  <span>Diet compliance</span>
+                  <strong>Complete</strong>
+                </div>
+                <div class="sample-row">
+                  <span>Water gallon</span>
+                  <strong>Complete</strong>
+                </div>
+                <div class="sample-row">
+                  <span>Read 10 pages</span>
+                  <strong>Open</strong>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="sample-panel">
+            <h3>Do and Don’t</h3>
+            <ul>
+              <li>Do keep gold for actions, wins, and important metrics.</li>
+              <li>Do use strong headlines and concise copy.</li>
+              <li>Do make cards feel dense and controlled.</li>
+              <li>Do not use pastel gradients, soft wellness language, or playful iconography.</li>
+              <li>Do not overuse charts when a single number creates more tension.</li>
+              <li>Do not fill empty space with generic community features in the MVP.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <p class="footer-note">
+        STRAXIS Brand Design Document. Use this as the source of truth before
+        designing screens or components.
+      </p>
+    </main>
+  </body>
+</html>
