@@ -21,7 +21,7 @@ export function PrimaryButton({
         opacity: pressed ? 0.86 : 1,
       })}
     >
-      <Text style={{ color: "#05110C", fontWeight: "800", textAlign: "center" }}>
+      <Text style={{ color: theme.colors.onPrimary, fontWeight: "800", textAlign: "center" }}>
         {title}
       </Text>
     </Pressable>
