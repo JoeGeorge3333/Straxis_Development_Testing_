@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, Switch, Text, View } from "react-native";
+import { Platform, ScrollView, Switch, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Card } from "@/components/Card";
 import { PrimaryButton } from "@/components/PrimaryButton";
@@ -8,6 +9,7 @@ import { TextField } from "@/components/TextField";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { logWorkoutThunk, refreshWorkouts } from "@/store/slices/workoutsSlice";
 import { useTheme } from "@/theme/ThemeProvider";
+import { useTabScreenScrollStyle } from "@/theme/screenLayout";
 
 export default function WorkoutsScreen() {
   const theme = useTheme();
@@ -34,9 +36,18 @@ export default function WorkoutsScreen() {
     setNotes("");
   }
 
+  const scrollStyle = useTabScreenScrollStyle();
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }}>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.bg }}
+      edges={["top", "left", "right"]}
+    >
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
+        contentContainerStyle={scrollStyle}
+      >
         <ScreenHeader title="Workouts" subtitle="Log a workout to earn points." />
 
         <Card>

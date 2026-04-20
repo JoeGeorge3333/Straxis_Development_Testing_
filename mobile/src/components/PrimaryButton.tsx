@@ -1,4 +1,4 @@
-import { Pressable, Text } from "react-native";
+import { Platform, Pressable, Text } from "react-native";
 
 import { useTheme } from "@/theme/ThemeProvider";
 
@@ -10,13 +10,16 @@ export function PrimaryButton({
   onPress: () => void;
 }) {
   const theme = useTheme();
+  const ios = Platform.OS === "ios";
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => ({
-        paddingVertical: 14,
-        paddingHorizontal: 16,
-        borderRadius: 14,
+        paddingVertical: ios ? 16 : 14,
+        paddingHorizontal: ios ? 18 : 16,
+        minHeight: ios ? 48 : 44,
+        justifyContent: "center",
+        borderRadius: ios ? 16 : 14,
         backgroundColor: theme.colors.primary,
         opacity: pressed ? 0.86 : 1,
       })}

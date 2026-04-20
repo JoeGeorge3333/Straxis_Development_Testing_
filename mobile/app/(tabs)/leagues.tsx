@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Card } from "@/components/Card";
 import { LeaderboardRowItem } from "@/components/LeaderboardRowItem";
@@ -14,6 +15,7 @@ import {
   refreshLeagues,
 } from "@/store/slices/leaguesSlice";
 import { useTheme } from "@/theme/ThemeProvider";
+import { useTabScreenScrollStyle } from "@/theme/screenLayout";
 
 export default function LeaguesScreen() {
   const theme = useTheme();
@@ -33,9 +35,14 @@ export default function LeaguesScreen() {
     dispatch(refreshFeed(activeLeague.id));
   }, [dispatch, activeLeague?.id]);
 
+  const scrollStyle = useTabScreenScrollStyle();
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }}>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.bg }}
+      edges={["top", "left", "right"]}
+    >
+      <ScrollView contentContainerStyle={scrollStyle}>
         <ScreenHeader title="League" subtitle="Standings and activity." />
 
         {!activeLeague ? (

@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { Platform, Text, TextInput, View } from "react-native";
 
 import { useTheme } from "@/theme/ThemeProvider";
 
@@ -20,8 +20,9 @@ export function TextField({
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
 }) {
   const theme = useTheme();
+  const ios = Platform.OS === "ios";
   return (
-    <View style={{ gap: 8 }}>
+    <View style={{ gap: ios ? 10 : 8 }}>
       <Text style={{ color: theme.colors.muted, fontSize: 12, letterSpacing: 1 }}>
         {label.toUpperCase()}
       </Text>
@@ -36,11 +37,13 @@ export function TextField({
         style={{
           color: theme.colors.text,
           backgroundColor: theme.colors.surface,
-          borderRadius: 14,
+          borderRadius: ios ? 16 : 14,
           borderWidth: 1,
           borderColor: theme.colors.border,
-          paddingHorizontal: 14,
-          paddingVertical: 12,
+          paddingHorizontal: ios ? 16 : 14,
+          paddingVertical: ios ? 14 : 12,
+          minHeight: ios ? 48 : 44,
+          fontSize: ios ? 17 : 16,
         }}
       />
     </View>

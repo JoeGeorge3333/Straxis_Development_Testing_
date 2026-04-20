@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { SafeAreaView, ScrollView, useWindowDimensions, View } from "react-native";
+import { Platform, ScrollView, useWindowDimensions, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { MatchupHeader } from "@/components/MatchupHeader";
 import { MatchupScoreCard } from "@/components/MatchupScoreCard";
@@ -8,6 +9,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { useAppSelector } from "@/store/hooks";
 import { refreshLeaderboard, refreshLeagues } from "@/store/slices/leaguesSlice";
 import { useTheme } from "@/theme/ThemeProvider";
+import { useTabScreenScrollStyle } from "@/theme/screenLayout";
 
 const WIDE_BREAKPOINT = 880;
 
@@ -28,6 +30,18 @@ export default function DashboardScreen() {
   useEffect(() => {
     if (league?.id) dispatch(refreshLeaderboard(league.id));
   }, [dispatch, league?.id]);
+
+  const scrollStyle = useTabScreenScrollStyle(
+    wide
+      ? {
+          padding: Platform.OS === "ios" ? 22 : 24,
+          gap: Platform.OS === "ios" ? 18 : 20,
+          maxWidth: 1120,
+          width: "100%",
+          alignSelf: "center",
+        }
+      : undefined
+  );
 
   const { mePoints, oppPoints } = useMemo(() => {
     const mePoints = todayScore?.mePoints ?? 215;
@@ -60,16 +74,14 @@ export default function DashboardScreen() {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.bg }}
+      edges={["top", "left", "right"]}
+    >
       <ScrollView
-        contentContainerStyle={{
-          padding: wide ? 24 : 16,
-          gap: 12,
-          paddingBottom: 28,
-          maxWidth: wide ? 1120 : undefined,
-          width: "100%",
-          alignSelf: wide ? "center" : undefined,
-        }}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
+        contentContainerStyle={scrollStyle}
       >
         {wide ? (
           <View style={{ flexDirection: "row", gap: 20, alignItems: "flex-start" }}>

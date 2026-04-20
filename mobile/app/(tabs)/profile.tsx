@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { SafeAreaView, ScrollView, Switch, Text, View } from "react-native";
+import { Platform, ScrollView, Switch, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { PrimaryButton } from "@/components/PrimaryButton";
 import { ScreenHeader } from "@/components/ScreenHeader";
@@ -7,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { signOutThunk } from "@/store/slices/authSlice";
 import { bootstrapRuntime, setDemoModeThunk } from "@/store/slices/runtimeSlice";
 import { useTheme } from "@/theme/ThemeProvider";
+import { useTabScreenScrollStyle } from "@/theme/screenLayout";
 import { getApiBaseUrl } from "@/config/runtime";
 
 export default function ProfileScreen() {
@@ -19,9 +21,18 @@ export default function ProfileScreen() {
     dispatch(bootstrapRuntime());
   }, [dispatch]);
 
+  const scrollStyle = useTabScreenScrollStyle();
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }}>
-      <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: theme.colors.bg }}
+      edges={["top", "left", "right"]}
+    >
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets={Platform.OS === "ios"}
+        contentContainerStyle={scrollStyle}
+      >
         <ScreenHeader
           title={profile?.username ?? "Profile"}
           subtitle="Account and settings."
@@ -54,7 +65,9 @@ export default function ProfileScreen() {
             </View>
             <Switch
               value={demoMode}
-              onValueChange={(v) => dispatch(setDemoModeThunk(v))}
+              onValueChange={(v) => {
+                void dispatch(setDemoModeThunk(v));
+              }}
               trackColor={{ true: theme.colors.primary2, false: theme.colors.surface2 }}
               thumbColor={theme.colors.text}
             />

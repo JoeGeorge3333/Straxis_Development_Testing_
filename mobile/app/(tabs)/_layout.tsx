@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, Platform, View } from "react-native";
 
 import { useTheme } from "@/theme/ThemeProvider";
 import { useAppSelector } from "@/store/hooks";
@@ -39,6 +39,13 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
           borderTopColor: theme.colors.border,
+          ...(Platform.OS === "ios"
+            ? {
+                paddingTop: 6,
+                paddingBottom: 4,
+                minHeight: 52,
+              }
+            : {}),
         },
       }}
     >
@@ -47,7 +54,11 @@ export default function TabsLayout() {
         options={{
           title: "Dashboard",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="speedometer-outline" color={color} size={size} />
+            <Ionicons
+              name="speedometer-outline"
+              color={color}
+              size={Platform.OS === "ios" ? Math.max(size, 26) : size}
+            />
           ),
         }}
       />
@@ -56,7 +67,11 @@ export default function TabsLayout() {
         options={{
           title: "Workouts",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="barbell-outline" color={color} size={size} />
+            <Ionicons
+              name="barbell-outline"
+              color={color}
+              size={Platform.OS === "ios" ? Math.max(size, 26) : size}
+            />
           ),
         }}
       />
@@ -65,7 +80,11 @@ export default function TabsLayout() {
         options={{
           title: "Habits",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="checkbox-outline" color={color} size={size} />
+            <Ionicons
+              name="checkbox-outline"
+              color={color}
+              size={Platform.OS === "ios" ? Math.max(size, 26) : size}
+            />
           ),
         }}
       />
@@ -74,7 +93,11 @@ export default function TabsLayout() {
         options={{
           title: "League",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="trophy-outline" color={color} size={size} />
+            <Ionicons
+              name="trophy-outline"
+              color={color}
+              size={Platform.OS === "ios" ? Math.max(size, 26) : size}
+            />
           ),
         }}
       />
@@ -83,7 +106,11 @@ export default function TabsLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" color={color} size={size} />
+            <Ionicons
+              name="person-circle-outline"
+              color={color}
+              size={Platform.OS === "ios" ? Math.max(size, 26) : size}
+            />
           ),
         }}
       />
