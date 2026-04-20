@@ -1,0 +1,13 @@
+{
+  "name": "straxis-development-testing",
+  "private": true,
+  "scripts": {
+    "web": "npm run dev --prefix web",
+    "web:build": "npm run build --prefix web",
+    "web:preview": "npm run preview --prefix web",
+    "mobile": "npm start --prefix mobile",
+    "mobile:localhost": "npm run start:localhost --prefix mobile",
+    "ios": "npm run ios --prefix mobile",
+    "expo": "npm run start --prefix mobile"
+  }
+}
