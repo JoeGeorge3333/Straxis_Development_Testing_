@@ -1,0 +1,85 @@
+STRAXIS / Fitness challenge — project state snapshot
+Generated: 2026-04-18
+Exact revision after checkout: run  git log -1 --oneline   (or  git rev-parse HEAD)
+
+================================================================================
+1. REPOSITORY OVERVIEW
+================================================================================
+Monorepo-style layout:
+  - mobile/     Expo (React Native) app — primary mobile client, Expo Web capable
+  - web/        Desktop-first Vite + React + React Router prototype (Straxis web UI)
+  - docs/       API notes, MVP requirements, task-proof S3 planning, etc.
+  - Root        Static HTML/CSS/JS wireframe demos (index.html, wireframe.html, …) — legacy / reference
+
+Branch context: commit created on active git branch (see `git branch`).
+
+================================================================================
+2. WEB APP (web/) — CURRENT FOCUS
+================================================================================
+Stack:
+  - Vite 7, React 19, TypeScript, react-router-dom 6
+  - Run: cd web && npm install && npm run dev  →  http://localhost:5173 (default)
+
+Routes (all under AppLayout: header + bottom nav + main):
+  /                 Dashboard: Tasks (active league challenge) | League panel
+  /tasks/:taskId    Task detail / log submit
+  /tasks/new        Add challenge task (league owner only)
+  /data             Data / logs (filtered by active league when applicable)
+  /league           League hub: access key, copy, members, matchup, leaderboard, mock chat
+  /league/create    Create league (generates access key)
+  /league/join      Join by access key (e.g. STRX-DEMO for starter)
+  /league/challenge Owner: edit shared challenge task list
+  /profile          Settings stub + link to emoji picker
+  /profile/emoji    Avatar emoji grid
+
+State (web/src/state.tsx):
+  - In-memory React reducer (no backend): users, leagues, activeLeagueId, challenge tasks per league,
+    taskProgress (per user, per task), rollDayKey + day/tick for daily reset of completions,
+    logs, leagueChat (mock), leagueJoinError
+  - League has: name, accessKey, ownerId, memberIds, challengeTasks[], startedOnDayKey (program day)
+
+UI highlights:
+  - Top bar: avatar | STRAXIS + challenge name + DAY n | +
+  - Bottom nav: Dashboard | Data/Logs | League
+  - STRAXIS brand styling in web/src/styles.css (gold / void palette)
+
+Planning (not implemented):
+  - docs/task-proof-s3-plan.md — image proof → S3 presigned URL flow, data model options
+
+Do not commit: web/node_modules, web/dist (see root .gitignore).
+
+================================================================================
+3. MOBILE APP (mobile/)
+================================================================================
+Stack:
+  - Expo SDK 54, Expo Router, React 19 (aligned with RN 0.81 peer), Redux Toolkit, TypeScript
+
+Notable paths:
+  - app/(tabs)/     Tab screens: dashboard, workouts, habits, leagues, profile
+  - src/theme/colors.ts   STRAXIS palette (gold/carbon — brand HTML aligned)
+  - src/components/ Matchup, tasks, progress bar, etc.
+
+Run: cd mobile && npm install && npm start / npm run web
+
+================================================================================
+4. DOCUMENTATION (docs/)
+================================================================================
+  - task-proof-s3-plan.md    Task image proof + S3 integration map (pre-build)
+  - api-contract.md, mvp-requirements.md, backend-integration.md, web-demo.md, brand-seeds.md, etc.
+
+================================================================================
+5. LEGACY / STATIC PROTOTYPES (repo root)
+================================================================================
+  - index.html, wireframe.html, styles.css, wireframe.css — early wireframe / marketing experiments
+  - Not the canonical Straxis web product (use web/ for the React dashboard)
+
+================================================================================
+6. KNOWN GAPS / NEXT STEPS (informal)
+================================================================================
+  - Web: no real API; no S3; chat is mock; day roll clears taskProgress only in memory
+  - Mobile vs web: two UIs; long-term may converge or keep web as admin/demo
+  - Persist rollDayKey / taskProgress to localStorage or server if retention matters
+
+================================================================================
+END
+================================================================================

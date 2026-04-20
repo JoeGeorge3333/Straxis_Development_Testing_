@@ -1,0 +1,6 @@
+# Vite web app
+web/node_modules/
+web/dist/
+
+# TypeScript incremental build info
+**/tsconfig.tsbuildinfo
